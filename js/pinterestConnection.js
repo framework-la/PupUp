@@ -30,7 +30,7 @@ function get_image(board) {
 			var random = Math.floor(Math.random() * data.data.length)
 
 			var imgUrl = data.data[random].image.original.url
-			$("#start").append("<img src=" + imgUrl + ">")
+			$("#start").append("<img src=" + imgUrl + " id='image'>")
 		}
 	})
 }
