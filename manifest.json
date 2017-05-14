@@ -13,8 +13,9 @@
     "activeTab",
     "https://ajax.googleapis.com/"
   ],
-  "background":
-  {
-    "scripts": ["jQuery v3.1.0 .js", "js/pinterestConnection.js"]
-  }
+  "content_scripts":
+  [{
+    "matches": ["file:///index.html"],
+    "js": ["js/jQuery-v3.1.0.js", "js/pinterestConnection.js"]
+  }]
 }
