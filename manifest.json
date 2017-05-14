@@ -7,15 +7,18 @@
 
   "browser_action": {
     "default_icon": "icon.png",
-    "default_popup": "index.html"
+    "default_popup": "index.html",
+    "name": "Click Me"
   },
   "permissions": [
     "activeTab",
+    "tabs",
     "https://ajax.googleapis.com/"
   ],
+
   "content_scripts":
   [{
-    "matches": ["file:///index.html"],
+    "matches": ["http://*/*", "https://*/*"],
     "js": ["js/jQuery-v3.1.0.js", "js/pinterestConnection.js"]
   }]
 }
