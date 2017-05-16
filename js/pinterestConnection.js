@@ -19,6 +19,7 @@ $(document).ready( function () {
 })
 
 
+
 function get_image(board) {
 
 	$.ajax({
@@ -30,7 +31,15 @@ function get_image(board) {
 			var random = Math.floor(Math.random() * data.data.length)
 
 			var imgUrl = data.data[random].image.original.url
-			$("#start").append("<img src=" + imgUrl + ">")
+			//alert(imgUrl)
+			var pic = $("<img src=" + imgUrl + " id='image'>");
+			$("#loader").fadeOut(500, function(){
+				$("#loader").show();
+				$("#loader").replaceWith(pic);
+				setTimeout(function(){
+				pic.fadeOut(5000);
+			}, 5000);
+			});			
 		}
 	})
 }

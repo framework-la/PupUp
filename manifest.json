@@ -14,7 +14,8 @@
     "https://ajax.googleapis.com/"
   ],
   "content_scripts":
-  {
-    "scripts": ["jQuery v3.1.0 .js", "js/pinterestConnection.js"]
-  }
+  [{
+    "matches": ["file://index.html"],
+    "js": ["js/jQuery-v3.1.0.js", "js/pinterestConnection.js"]
+  }]
 }
