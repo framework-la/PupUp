@@ -12,13 +12,13 @@ boardsObj = {
 	other:'frameworkl/other',
 }
 
-var keys = Object.keys(boardsObj) //gets the keys for boardObj -> array
-var randomBoard = Math.floor(Math.random() * keys.length) //finds the index for a random key
-get_image(boardsObj[keys[randomBoard]]) // example: boardsObj[keys[2]] keys[2] = other
+// var keys = Object.keys(boardsObj) //gets the keys for boardObj -> array
+// var randomBoard = Math.floor(Math.random() * keys.length) //finds the index for a random key
+// get_image(boardsObj[keys[randomBoard]]) // example: boardsObj[keys[2]] keys[2] = other
 
+restore_options()
 
 function get_image(board) {
-
 	$.ajax({
 		type:"GET",
 		url: pinterestInfo.pinterestUrl + pinterestInfo.boardFirst + board + pinterestInfo.pins,
@@ -28,7 +28,7 @@ function get_image(board) {
 			var random = Math.floor(Math.random() * data.data.length)
 			var imgUrl = data.data[random].image.original.url
 			//alert(imgUrl)
-			var pic = $("<img src=" + imgUrl + " id='image'>");
+			var pic = $("<img src=" + imgUrl + " id='image' style='position: relative; top:25px'>");
 			$("#loader").fadeOut(500, function(){
 				$("#loader").show();
 				$("#loader").replaceWith(pic);
@@ -56,4 +56,55 @@ function getLocation(image_obj,div) {
 	leftOffset = (wWidth - image_obj.width)/2
 
 	div.style.left = leftOffset + 'px'
+}
+
+
+document.getElementById("save").onclick = function () {
+    saveOptions()
+}
+
+document.getElementById("setting").onclick = function () { 
+	openOptions()
+}
+
+function openOptions() { 
+	$("#options").show()
+	$("#loader, #image").hide()
+}
+
+
+
+function saveOptions() {
+
+  var options = document.getElementsByTagName("input")
+  var favAnimals = []
+  for (var option of options) {
+    if (option.checked) {
+      favAnimals.push(option.id)
+    }
+  }
+  chrome.storage.sync.set({
+    favAnimals: favAnimals
+  }, function() {
+    // Update status to let user know options were saved.
+    var status = document.getElementById('status');
+    status.textContent = 'Options saved.';
+    setTimeout(function() {
+      status.textContent = '';
+    }, 750);
+  });
+}
+
+// Restores select box and checkbox state using the preferences
+// stored in chrome.storage.
+function restore_options() {
+  // Use default value color = 'red' and likesColor = true.
+  chrome.storage.sync.get(null, function(items) {
+  	$("#options").hide()
+  	$("#loader").show()
+
+    var keys = items.favAnimals //gets the keys for boardObj -> array
+	var randomBoard = Math.floor(Math.random() * keys.length) //finds the index for a random key
+	get_image(boardsObj[keys[randomBoard]]) // example: boardsObj[keys[2]] keys[2] = other
+  });
 }

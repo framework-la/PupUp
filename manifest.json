@@ -11,9 +11,7 @@
     "name": "Click Me"
   },
   "permissions": [
-    "activeTab",
-    "tabs",
-    "https://ajax.googleapis.com/"
+    "storage"
   ],
 
   "content_scripts":

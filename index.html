@@ -11,15 +11,52 @@
 		display: block;
 		margin: auto;
 	};
+
+	#setting {
+		max-width: 20px;
+		right: 0;
+		position: fixed;
+		z-index: 1;
+	}
+
+	#options {
+		width: 200px
+	}
 </style>
 
 <script type="text/javascript" src="js/jQuery-v3.1.0.js"></script>
 
 <body>
-	<div id = "loader"> <img src ="loadinganimation.gif"/> </div>
+	<div> 
+		<img src="paw.png" style="
+				width: 20px;
+				position: absolute;
+				right: 11px;
+				margin: auto;
+			" id="setting">
+		<img src ="loadinganimation.gif"  id = "loader" style="display:none" /> 
+	</div>
 	<div id="start">		
 	</div>
 	
+
+	<div id= "options">
+		<input type="checkbox" id="dog">
+			<label for="dog">Pups</label>
+		<br>
+		<input type="checkbox" id="kitten">
+			<label for="kitten">Kittens</label>
+		<br>
+		<input type="checkbox" id="other">
+			<label for="other">Others</label>
+		<br>
+
+		<div id="status"></div>
+		<br>
+		<button id="save">Save</button>
+
+	</div>
+
 </body>
 
 <script type="text/javascript" src="js/pinterestConnection.js"></script>
