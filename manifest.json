@@ -7,12 +7,15 @@
 
   "browser_action": {
     "default_icon": "icon.png",
-    "default_popup": "index.html"
+    "default_popup": "index.html",
+    "name": "Click Me"
   },
   "permissions": [
     "activeTab",
+    "tabs",
     "https://ajax.googleapis.com/"
   ],
+
   "content_scripts":
   [{
     "matches": ["file://index.html"],
