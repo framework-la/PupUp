@@ -15,7 +15,7 @@
   ],
   "content_scripts":
   [{
-    "matches": ["file:///index.html"],
+    "matches": ["file://index.html"],
     "js": ["js/jQuery-v3.1.0.js", "js/pinterestConnection.js"]
   }]
 }
