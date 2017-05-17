@@ -1,3 +1,6 @@
+var pause = false;
+var pic;
+
 pinterestInfo = {
 	boardFirst: '/v1/boards/',
 	pins: '/pins/',
@@ -15,8 +18,22 @@ boardsObj = {
 // var keys = Object.keys(boardsObj) //gets the keys for boardObj -> array
 // var randomBoard = Math.floor(Math.random() * keys.length) //finds the index for a random key
 // get_image(boardsObj[keys[randomBoard]]) // example: boardsObj[keys[2]] keys[2] = other
-
+checkIfSelcted()
 restore_options()
+
+function checkIfSelcted(){
+	chrome.storage.sync.get(null, function(items) {
+  	$("#options").hide()
+  	$("#loader").show()
+
+    var keys = items.favAnimals //gets the keys for boardObj -> array
+		console.log(keys);
+		if(keys === undefined){
+			alert("Please click paw to select animals!")
+		}
+  });
+}
+
 
 function get_image(board) {
 	$.ajax({
@@ -28,14 +45,19 @@ function get_image(board) {
 			var random = Math.floor(Math.random() * data.data.length)
 			var imgUrl = data.data[random].image.original.url
 			//alert(imgUrl)
-			var pic = $("<img src=" + imgUrl + " id='image' style='position: relative; top:25px'>");
-			$("#loader").fadeOut(500, function(){
-				$("#loader").show();
-				$("#loader").replaceWith(pic);
-				setTimeout(function(){
-				pic.fadeOut(5000);
-			}, 5000);
-			});			
+			pic = $("<img src=" + imgUrl + " id='image' style='position: relative; top:25px'>");
+				$("#loader").fadeOut(500, function(){
+						$("#loader").show();
+						$("#loader").replaceWith(pic);
+						setTimeout(function(){
+							if(!pause){
+							$("img").fadeOut(5000);
+							setTimeout(function(){
+								window.close();
+							}, 5000)
+							}
+					}, 5000);
+				});			
 		}
 	})
 }
@@ -64,12 +86,35 @@ document.getElementById("save").onclick = function () {
 }
 
 document.getElementById("setting").onclick = function () { 
-	openOptions()
+	openOptions();
+	chrome.storage.sync.get(null, function(items) {
+    var keys = items.favAnimals;
+		console.log(keys)
+		if(keys.includes("dog")){
+			document.getElementById("dog").checked = true;
+		}
+		if(keys.includes("kitten")){
+			document.getElementById("kitten").checked = true;
+		}
+		if(keys.includes("other")){
+			document.getElementById("other").checked = true;
+		}
+	});
+}
+document.getElementById("paws").onclick = function () {
+	pause = !pause;
+	if(!pause){
+		$("img").fadeOut(5000);
+		setTimeout(function(){
+								window.close();
+		}, 5000)
+	}
 }
 
 function openOptions() { 
 	$("#options").show()
 	$("#loader, #image").hide()
+	
 }
 
 
@@ -86,12 +131,14 @@ function saveOptions() {
   chrome.storage.sync.set({
     favAnimals: favAnimals
   }, function() {
-    // Update status to let user know options were saved.
+   //Update status to let user know options were saved.
     var status = document.getElementById('status');
     status.textContent = 'Options saved.';
     setTimeout(function() {
       status.textContent = '';
-    }, 750);
+    }, 2000);
+		restore_options();
+
   });
 }
 
