@@ -68,8 +68,8 @@ document.getElementById("setting").onclick = function () {
 }
 
 function openOptions() { 
-	$("#options").show()
-	$("#loader, #image").hide()
+	$("#options").show();
+	$("#loader, #image").hide();
 }
 
 
@@ -80,7 +80,9 @@ function saveOptions() {
   var favAnimals = []
   for (var option of options) {
     if (option.checked) {
-      favAnimals.push(option.id)
+			
+      favAnimals.push(option.id);
+			
     }
   }
   chrome.storage.sync.set({
@@ -92,8 +94,22 @@ function saveOptions() {
     setTimeout(function() {
       status.textContent = '';
     }, 750);
-  });
-}
+		restore_options();
+	});
+
+	// function showCheckedBoxes() {
+	// 	var options = $("#options");
+	// 	chrome.storage.sync.get(null, function(items){
+	// 		var keys = items.favAnimals;
+	// 		if(keys.includes("dog")){
+	// 			this.checked.show();
+	// 		}
+	// 	})
+
+	// }
+
+
+
 
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.

@@ -10,9 +10,9 @@
     "default_popup": "index.html",
     "name": "Click Me"
   },
-  "permissions": [
-    "storage"
-  ],
+  "permissions": 
+  ["storage"],
+
 
   "content_scripts":
   [{
