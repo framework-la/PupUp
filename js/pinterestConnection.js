@@ -132,12 +132,12 @@ function saveOptions() {
     favAnimals: favAnimals
   }, function() {
    //Update status to let user know options were saved.
-    var status = document.getElementById('status');
-    status.textContent = 'Options saved.';
-    setTimeout(function() {
-      status.textContent = '';
-    }, 2000);
-		restore_options();
+    // var status = document.getElementById('status');
+    // status.textContent = 'Options saved.';
+    // setTimeout(function() {
+    //   status.textContent = '';
+    // }, 2000);
+	restore_options();
 
   });
 }
